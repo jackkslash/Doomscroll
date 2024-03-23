@@ -1,31 +1,8 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import Image from "next/image";
-
-export interface Media {
-    id: string
-    title: string
-    desc: string
-    uploadDate: string;
-    channelId: string;
-    channelTitle: string;
-    thumbnails?: Thumbnails;
-    tags?: (string)[] | null;
-    platform: string
-}
-
-export interface Thumbnails {
-    default: Metadata;
-    medium?: Metadata | null;
-    high?: Metadata | null;
-    standard?: Metadata | null;
-    maxres?: Metadata | null;
-}
-export interface Metadata {
-    url: string;
-    width: number;
-    height: number;
-}
+import Link from 'next/link';
+import { Media } from '../types/types';
 
 interface MediaProps {
     media: Media;
@@ -36,15 +13,14 @@ export default function MediaList({ submitLink }: any) {
     const [mediaList, setMediaList] = useState<Media[]>([]);
 
     useEffect(() => {
-        // Assuming you fetch data in useEffect and set it to mediaList state
         fetchMediaData();
     }, []);
 
     const fetchMediaData = async () => {
         try {
-            const response = await fetch('http://localhost:3000/media'); // Assuming you have a route /media to fetch data
+            const response = await fetch(process.env.NEXT_PUBLIC_DB_LINK + "/media"); // Assuming you have a route /media to fetch data
             const data = await response.json();
-            setMediaList(data); // set the fetched data to state
+            setMediaList(data);
         } catch (error) {
             console.error('Error fetching media data:', error);
         }
@@ -81,10 +57,11 @@ function MediaItem({ media }: MediaProps) {
     return (
         <div className="flex">
             <div className="relative max-w-xs">
-                <Image src={media.thumbnails?.standard?.url!} className="w-full rounded-lg" alt="Card Image" width={media.thumbnails?.standard?.width} height={media.thumbnails?.standard?.height} />
-                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white px-4 py-2">
-                    <h2 className="text-lg font-bold">{media.title}</h2>
-                </div>
+                <Link href={"/media/" + media.id}>
+                    <Image src={media.thumbnails?.standard?.url!} className="w-full rounded-lg" alt="Card Image" width={media.thumbnails?.standard?.width} height={media.thumbnails?.standard?.height} />
+                    <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white px-4 py-2">
+                        <h2 className="text-lg font-bold">{media.title}</h2>
+                    </div></Link>
             </div>
         </div>
 
