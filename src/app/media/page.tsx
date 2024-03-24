@@ -1,5 +1,5 @@
 import React from 'react'
-import MediaList from '../components/MediaList'
+import MediaList from '../../../components/MediaList'
 import { redirect } from 'next/navigation';
 
 export default function Page() {

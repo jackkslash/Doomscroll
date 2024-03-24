@@ -1,8 +1,8 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
-import MediaItem from '@/app/components/MediaItem'
-import { Media } from '@/app/types/types'
+import MediaItem from '../../../components/MediaItem'
+import { Media } from '../../../types/types'
 
 
 export default function Page() {
