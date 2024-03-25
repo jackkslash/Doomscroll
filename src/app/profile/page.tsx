@@ -9,6 +9,7 @@ export default async function Page() {
     if (error || !data?.user) {
         redirect('/')
     }
+    let metadata = data.user.user_metadata
 
-    return <p>Hello {data.user.email}</p>
+    return <p>Hello {metadata.user_name}</p>
 }
