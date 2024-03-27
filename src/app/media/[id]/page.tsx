@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import MediaItem from '../../../components/MediaItem'
 import { Media } from '../../../types/types'
+import RatingForm from '@/components/RatingForm'
 
 
 export default function Page() {
@@ -25,6 +26,8 @@ export default function Page() {
     return (
         <div>
             <MediaItem media={mediaItem!} />
+            <div><RatingForm id={params.id} />
+            </div>
         </div>
     )
 }
