@@ -9,7 +9,7 @@ export default function Page() {
             method: 'POST',
         });
         const res = await req.json();
-        const id = res.pLink[0].id;
+        const id = res.pLink.item.id;
         redirect("/media/" + id)
     }
     return (
