@@ -9,7 +9,10 @@ export default async function Page() {
     if (error || !data?.user) {
         redirect('/')
     }
-    let metadata = data.user.user_metadata
+    const req = await fetch(process.env.NEXT_PUBLIC_DB_LINK + "/profile/" + data.user?.id, {
+        method: 'GET',
+    });
+    const res = await req.json();
 
-    return <p>Hello {metadata.user_name}</p>
+    return <p>Hello {res.username}</p>
 }
