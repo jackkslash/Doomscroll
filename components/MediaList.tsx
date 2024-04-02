@@ -1,36 +1,21 @@
-'use client'
 import React, { useEffect, useState } from 'react'
 import Image from "next/image";
 import Link from 'next/link';
 import { Media } from '../src/types/types';
+import { fetchMediaData } from '@/app/media/actions';
 
 interface MediaProps {
     media: Media;
 }
 
-export default function MediaList({ submitLink }: any) {
+export default async function MediaList({ submitLink }: any) {
 
-    const [mediaList, setMediaList] = useState<Media[]>([]);
-
-    useEffect(() => {
-        fetchMediaData();
-    }, []);
-
-    const fetchMediaData = async () => {
-        try {
-            const response = await fetch(process.env.NEXT_PUBLIC_DB_LINK + "/media"); // Assuming you have a route /media to fetch data
-            const data = await response.json();
-            setMediaList(data);
-        } catch (error) {
-            console.error('Error fetching media data:', error);
-        }
-    };
-
+    const data = await fetchMediaData();
     return (
         <div >
             <h1 className="pt-10 flex justify-center pb-4">Media List</h1>
             <div className='flex flex-col items-center space-y-8'>
-                {mediaList.map(media => (
+                {data.map((media: Media) => (
                     <MediaItem key={media.id} media={media} />
                 ))}
             </div>
