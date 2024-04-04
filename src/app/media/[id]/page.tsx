@@ -1,31 +1,19 @@
-'use client'
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'next/navigation'
+import React from 'react'
 import MediaItem from '../../../components/MediaItem'
-import { Media } from '../../../types/types'
 import RatingForm from '@/components/RatingForm'
+import { getMediaById } from './actions'
 
 
-export default function Page() {
-    const params = useParams()
-    const [mediaItem, setMediaItem] = useState<Media>();
+export default async function Page({
+    params,
+}: {
+    params: { id: string }
 
-    useEffect(() => {
-        fetchMediaData();
-    }, []);
-
-    const fetchMediaData = async () => {
-        try {
-            const response = await fetch(process.env.NEXT_PUBLIC_DB_LINK + '/media/' + params.id); // Assuming you have a route /media to fetch data
-            const data = await response.json();
-            setMediaItem(data); // set the fetched data to state
-        } catch (error) {
-            console.error('Error fetching media data:', error);
-        }
-    };
+}) {
+    const data = await getMediaById(params.id)
     return (
         <div>
-            <MediaItem media={mediaItem!} />
+            <MediaItem media={data?.media} />
             <div><RatingForm id={params.id} />
             </div>
         </div>

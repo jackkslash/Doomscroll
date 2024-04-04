@@ -1,6 +1,7 @@
 'use server'
 import { redirect } from "next/navigation";
 import { createClient } from '@/utils/supabase/server'
+import { revalidatePath } from "next/cache";
 
 export async function submitReview(formData: FormData) {
 
@@ -25,5 +26,24 @@ export async function submitReview(formData: FormData) {
         },
         body: JSON.stringify(fData),
     });
+    revalidatePath('/media/' + fData.id)
     redirect("/media/" + fData.id)
+}
+
+export async function getMediaById(id: string) {
+    const supabase = createClient()
+
+    const { data, error } = await supabase.auth.getUser()
+    if (error || !data?.user) {
+        redirect('/')
+    }
+
+    const { data: media, error: mediaError } = await supabase.from('media').select('*').eq('id', id).single()
+    if (mediaError) {
+        redirect('/')
+    }
+
+    return {
+        media
+    }
 }

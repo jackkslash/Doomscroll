@@ -1,20 +1,15 @@
+'use client'
 import React, { useState } from 'react';
 import StarRating from './StarRating';
 import { submitReview } from '@/app/media/[id]/actions';
-import { useParams } from 'next/navigation';
 
 interface IdProps {
     id: string | string[];
 }
 
 const RatingForm = ({ id }: IdProps) => {
-    const [title, setTitle] = useState<string>('');
     const [body, setBody] = useState<string>('');
     const [rating, setRating] = useState<number>(0);
-
-    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.target.value);
-    };
 
     const handleBodyChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setBody(e.target.value);
