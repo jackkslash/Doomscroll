@@ -13,7 +13,7 @@ export default async function Page({
     const data = await getMediaById(params.id)
     return (
         <div>
-            <MediaItem media={data?.media} />
+            <MediaItem media={data} />
             <div><RatingForm id={params.id} />
             </div>
         </div>

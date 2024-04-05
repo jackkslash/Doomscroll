@@ -38,12 +38,13 @@ export async function getMediaById(id: string) {
         redirect('/')
     }
 
-    const { data: media, error: mediaError } = await supabase.from('media').select('*').eq('id', id).single()
-    if (mediaError) {
-        redirect('/')
-    }
+    const media = await fetch(process.env.NEXT_PUBLIC_DB_LINK + "/media/" + id, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+    const res = await media.json();
 
-    return {
-        media
-    }
+    return res
 }
