@@ -48,3 +48,22 @@ export async function getMediaById(id: string) {
 
     return res
 }
+
+export async function getMediaReviews(id: string) {
+    const supabase = createClient()
+
+    const { data, error } = await supabase.auth.getUser()
+    if (error || !data?.user) {
+        redirect('/')
+    }
+
+    const media = await fetch(process.env.NEXT_PUBLIC_DB_LINK + "/media/" + id + "/review", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+    const res = await media.json();
+
+    return res
+}

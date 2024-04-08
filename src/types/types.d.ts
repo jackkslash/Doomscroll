@@ -22,3 +22,11 @@ export interface Metadata {
     width: number;
     height: number;
 }
+
+export interface Review {
+    reviewComment: string;
+    reviewRating: number;
+    reviewDate: string;
+    profileUsername: string;
+    profileID: string;
+}
