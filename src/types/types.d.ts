@@ -29,4 +29,6 @@ export interface Review {
     reviewDate: string;
     profileUsername: string;
     profileID: string;
+    mediaTitle?: string;
+    mediaDesc?: string;
 }
