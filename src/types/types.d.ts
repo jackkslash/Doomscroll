@@ -32,3 +32,13 @@ export interface Review {
     mediaTitle?: string;
     mediaDesc?: string;
 }
+
+export interface Ratings {
+    ratings: Rating[];
+    averageRating: number;
+}
+
+export interface Rating {
+    rating: number;
+    count: number;
+}
